@@ -144,8 +144,105 @@
             'Slides:\n');
         document.getElementById('content').innerText = output;
       }
+
+      function createPresentation(title, callback) {
+        try {
+            gapi.client.slides.presentations.create({
+                title: title,
+            }).then((response) => {
+                console.log(`Created presentation with ID: ${response.result.presentationId}`, '(createPresentation) Full response:\n', response);
+                const id = response.result.presentationId; 
+                if (callback) callback(id, callback);
+            });
+        } catch (err) {
+            // document.getElementById('content').innerText = err.message;
+            console.log(`Error: ${err.message}`)
+            return;
+        }
+      } 
+
+      function createSlide(presentationId, callback) {
+        const requests = [
+            {
+            createSlide: {
+                // objectId: pageId,
+                insertionIndex: '1',
+                slideLayoutReference: {
+                predefinedLayout: 'TITLE_AND_TWO_COLUMNS',
+                },
+            },
+            },
+        ];
+        // If you wish to populate the slide with elements, add element create requests here,
+        // using the pageId.
+        // Execute the request.
+        try {
+            gapi.client.slides.presentations
+                .batchUpdate({
+                presentationId: presentationId,
+                requests: requests,
+                })
+                .then((createSlideResponse) => {
+                const objectId =
+                createSlideResponse.result.replies[0].createSlide.objectId;
+                console.log(`Created slide with ID: ${objectId}`, '(createSlide) Full response:\n', createSlideResponse); 
+                if (callback) callback(createSlideResponse);
+                });
+        } catch (err) {
+            // document.getElementById('content').innerText = err.message;
+            console.log(`Error: ${err.message}`)
+            return;
+        }
+      }      
+
+      function createImage(presentationId, pageId, IMAGE_URL, callback) {
+        const imageUrl = IMAGE_URL;
+        // Create a new image, using the supplied object ID, with content downloaded from imageUrl.
+        const requests = [];
+        const imageId = 'MyImage_02';
+        const emu4M = {
+            magnitude: 4000000,
+            unit: 'EMU',
+        };
+        requests.push({
+            createImage: {
+            objectId: imageId,
+            url: imageUrl,
+            elementProperties: {
+                pageObjectId: pageId,
+                size: {
+                height: emu4M,
+                width: emu4M,
+                },
+                transform: {
+                scaleX: 1,
+                scaleY: 1,
+                translateX: 100000,
+                translateY: 100000,
+                unit: 'EMU',
+                },
+            },
+            },
+        });
+        // Execute the request.
+        try {
+            gapi.client.slides.presentations.batchUpdate({
+            presentationId: presentationId,
+            requests: requests,
+            }).then((response) => {
+            const createImageResponse = response.result.replies;
+            console.log(`Created image with ID: ${createImageResponse[0].createImage.objectId}`);
+            if (callback) callback(createImageResponse);
+            });
+        } catch (err) {
+            document.getElementById('content').innerText = err.message;
+            return;
+        }
+      }
+      
+      createPresentation('Askkhonsu-Custom-Travel-Plan', createSlide);
     </script>
     <script async defer src="https://apis.google.com/js/api.js" onload="gapiLoaded()"></script>
     <script async defer src="https://accounts.google.com/gsi/client" onload="gisLoaded()"></script>
   </body>
-</html>
+</html>  
