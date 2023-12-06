@@ -71,6 +71,7 @@
         });
         gisInited = true;
         maybeEnableButtons();
+        createPresentation('Askkhonsu-Custom-Travel-Plan', createSlide);
       }
 
       /**
@@ -78,7 +79,7 @@
        */
       function maybeEnableButtons() {
         if (gapiInited && gisInited) {
-            createPresentation('Askkhonsu-Custom-Travel-Plan', createSlide);
+            
           document.getElementById('authorize_button').style.visibility = 'visible';
         }
       }
