@@ -96,6 +96,9 @@
           document.getElementById('signout_button').style.visibility = 'visible';
           document.getElementById('authorize_button').innerText = 'Refresh';
           await listSlides();
+
+          await createPresentation('Askkhonsu-Custom-Travel-Plan', undefined); 
+
         };
 
         if (gapi.client.getToken() === null) {
@@ -247,17 +250,17 @@
       }
       
       
-      setTimeout(() => {
-        // createPresentation('Askkhonsu-Custom-Travel-Plan', undefined);
-        console.log('Ran.....'); 
+      // setTimeout(() => {
+      //   // createPresentation('Askkhonsu-Custom-Travel-Plan', undefined);
+      //   console.log('Ran.....'); 
 
-        gapi.client.slides.presentations.create({
-            title: 'Askkhonsu-Custom-Travel-Plan',
-        }).then((response) => {
-          console.log('response:', response)
-        });
+      //   gapi.client.slides.presentations.create({
+      //       title: 'Askkhonsu-Custom-Travel-Plan',
+      //   }).then((response) => {
+      //     console.log('response:', response)
+      //   });
 
-      }, 30000);
+      // }, 30000);
 
     </script>
     <script async defer src="https://apis.google.com/js/api.js" onload="gapiLoaded()"></script>
