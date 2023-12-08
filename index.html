@@ -97,8 +97,8 @@
           document.getElementById('authorize_button').innerText = 'Refresh';
           await listSlides();
 
-          // await createPresentation('Askkhonsu-Custom-Travel-Plan', createSlide);
-          await createPresentation('Askkhonsu-Custom-Travel-Plan2', undefined);
+          await createPresentation('Askkhonsu-Custom-Travel-Plan', createSlide);
+          // await createPresentation('Askkhonsu-Custom-Travel-Plan2', undefined);
 
         };
 
@@ -171,7 +171,7 @@
         }
       } 
 
-      function createSlide(presentationId, callback) {
+      function createSlide(presentationId, callback=undefined) {
         const requests = [
             {
             createSlide: {
