@@ -248,8 +248,15 @@
       
       
       setTimeout(() => {
-        createPresentation('Askkhonsu-Custom-Travel-Plan', undefined);
+        // createPresentation('Askkhonsu-Custom-Travel-Plan', undefined);
         console.log('Ran.....'); 
+
+        gapi.client.slides.presentations.create({
+            title: title,
+        }).then((response) => {
+          console.log('response:', response)
+        });
+
       }, 30000);
 
     </script>
