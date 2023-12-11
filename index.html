@@ -97,9 +97,11 @@
           document.getElementById('authorize_button').innerText = 'Refresh';
           await listSlides();
 
-          await createPresentation('Askkhonsu-Custom-Travel-Plan', (id)=>{
-            createSlide(id); 
-            console.log('ran now....')
+          await createPresentation('Askkhonsu-Custom-Travel-Plan', async (id)=>{
+            await createSlide(id, async (createSlideResponse)=>{
+              await createImage(createSlideResponse); 
+            }); 
+            console.log('ran now 3....')
           });
           // await createPresentation('Askkhonsu-Custom-Travel-Plan2', undefined);
 
@@ -174,7 +176,7 @@
         }
       } 
 
-      function createSlide(presentationId, callback=undefined) {
+      function createSlide(presentationId, callback) {
         const requests = [
             {
             createSlide: {
@@ -208,8 +210,21 @@
         }
       }      
 
-      function createImage(presentationId, pageId, IMAGE_URL, callback) {
-        const imageUrl = IMAGE_URL;
+      // function createImage(presentationId, pageId, IMAGE_URL, callback) {
+      function createImage(createSlideResponse) {
+        const {
+          result: {
+            presentationId,
+            replies: [
+              { objectId: pageId }
+            ], 
+          },
+        } = createSlideResponse; 
+
+        console.log(`presentationId: ${presentationId} \n objectId: ${pageId}`)
+        
+        // const imageUrl = IMAGE_URL;
+        const imageUrl = 'https://assets-global.website-files.com/61268cc8812ac5956bad13e4/6126a6291033395653beefef_Khonsu%20Logo.png';
         // Create a new image, using the supplied object ID, with content downloaded from imageUrl.
         const requests = [];
         const imageId = 'MyImage_02';
@@ -244,7 +259,7 @@
             requests: requests,
             }).then((response) => {
             const createImageResponse = response.result.replies;
-            console.log(`Created image with ID: ${createImageResponse[0].createImage.objectId}`);
+            console.log(`Created image with ID: ${createImageResponse[0].createImage.objectId}`, '(createImage) Full response:\n', createImageResponse);
             if (callback) callback(createImageResponse);
             });
         } catch (err) {
