@@ -202,7 +202,7 @@
 
       // function textMerging(templatePresentationId, dataSpreadsheetId, callback) {
       // function textMerging(templatePresentationId, presentationCopyId, callback) {
-      function textMerging(templatePresentationId, callback) {
+      async function textMerging(templatePresentationId, callback) {
         // Use the Sheets API to load data, one record per row.
         const responses = [];
         const dataRangeNotation = 'Customers!A2:M6';
@@ -235,7 +235,7 @@
                 name: copyTitle,
               };
 
-              gapi.client.drive.files.copy({
+              await gapi.client.drive.files.copy({
                 fileId: templatePresentationId,
                 requests: request,
               }).then((driveResponse) => {
