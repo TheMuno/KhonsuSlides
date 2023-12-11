@@ -111,8 +111,15 @@
           // const templatePresentationId = '1PhHqb2lYMlcoi-6snsyt1cf9xH2r8nnv2vd7UE3nbxM';  
           const templatePresentationId = '1s5zRdIWAFWbzxxriB-3NniCCj7WBKFmEBrtsN_R0Cn0';   
           
-          await textMerging(templatePresentationId, ()=>{
-            console.log('ran yes 3....')
+          // await textMerging(templatePresentationId, ()=>{
+          //   console.log('ran yes 3....')
+          // });
+
+          gapi.client.drive.files.copy({
+            fileId: templatePresentationId,
+            requests: request,
+          }).then((driveResponse) => {
+            console.log('driveResponse:', driveResponse)
           });
 
           // await createPresentation('Askkhonsu-Custom-Travel-Plan', async (id)=>{
@@ -235,7 +242,7 @@
                 name: copyTitle,
               };
 
-              await gapi.client.drive.files.copy({
+              gapi.client.drive.files.copy({
                 fileId: templatePresentationId,
                 requests: request,
               }).then((driveResponse) => {
