@@ -105,8 +105,12 @@
 
           await createPresentation('Askkhonsu-Custom-Travel-Plan', async (id)=>{
 
-            textMerging(templatePresentationId, ()=>{
-              console.log('ran yes 2....')
+            // textMerging(templatePresentationId, ()=>{
+            //   console.log('ran yes 2....')
+            // });
+
+            textMerging(templatePresentationId, id, ()=>{
+              console.log('ran yes 3....')
             });
 
             // for (let i = 0; i < 3 ; i++) {
@@ -381,7 +385,7 @@
       
 
       // function textMerging(templatePresentationId, dataSpreadsheetId, callback) {
-      function textMerging(templatePresentationId, callback) {
+      function textMerging(templatePresentationId, presentationCopyId, callback) {
         // Use the Sheets API to load data, one record per row.
         const responses = [];
         const dataRangeNotation = 'Customers!A2:M6';
@@ -417,7 +421,7 @@
                 fileId: templatePresentationId,
                 requests: request,
               }).then((driveResponse) => {
-                const presentationCopyId = driveResponse.result.id;
+                // const presentationCopyId = driveResponse.result.id;
 
                 // Create the text merge (replaceAllText) requests for this presentation.
                 const requests = [{
@@ -448,6 +452,7 @@
 
                 // Execute the requests for this presentation.
                 gapi.client.slides.presentations.batchUpdate({
+                  // presentationId: presentationCopyId,
                   presentationId: presentationCopyId,
                   requests: requests,
                 }).then((batchUpdateResponse) => {
