@@ -103,9 +103,15 @@
 
           await createPresentation('Askkhonsu-Custom-Travel-Plan', async (id)=>{
 
-            for (let i = 0; i < 3 ; i++) {
+            // for (let i = 0; i < 3 ; i++) {
+            //   await createSlide(id, async (createSlideResponse)=>{
+            //     await createImage(createSlideResponse, imgUrls[i]); 
+            //   }); 
+            // }
+
+            for await (const url of imgUrls) {
               await createSlide(id, async (createSlideResponse)=>{
-                await createImage(createSlideResponse, imgUrls[i]); 
+                await createImage(createSlideResponse, url); 
               }); 
             }
 
