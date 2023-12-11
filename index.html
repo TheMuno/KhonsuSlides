@@ -102,19 +102,23 @@
                             'https://assets-global.website-files.com/61268cc8812ac5956bad13e4/654d862321c5794682d467d0_Statue%20Of%20Liberty.jpg'];
 
           // const templatePresentationId = '1PhHqb2lYMlcoi-6snsyt1cf9xH2r8nnv2vd7UE3nbxM';  
-          const templatePresentationId = '1s5zRdIWAFWbzxxriB-3NniCCj7WBKFmEBrtsN_R0Cn0';                      
-
-          await createPresentation('Askkhonsu-Custom-Travel-Plan', async (id)=>{
-
-            // textMerging(templatePresentationId, ()=>{
-            //   console.log('ran yes 2....')
-            // });
-
-            textMerging(templatePresentationId, templatePresentationId, ()=>{
-              console.log('ran yes 3....')
-            });
-            
+          const templatePresentationId = '1s5zRdIWAFWbzxxriB-3NniCCj7WBKFmEBrtsN_R0Cn0';   
+          
+          textMerging(templatePresentationId, ()=>{
+            console.log('ran yes 3....')
           });
+
+          // await createPresentation('Askkhonsu-Custom-Travel-Plan', async (id)=>{
+
+          //   // textMerging(templatePresentationId, ()=>{
+          //   //   console.log('ran yes 2....')
+          //   // });
+
+          //   textMerging(templatePresentationId, ()=>{
+          //     console.log('ran yes 3....')
+          //   });
+            
+          // });
           // await createPresentation('Askkhonsu-Custom-Travel-Plan2', undefined);
 
         };
@@ -190,7 +194,8 @@
       
 
       // function textMerging(templatePresentationId, dataSpreadsheetId, callback) {
-      function textMerging(templatePresentationId, presentationCopyId, callback) {
+      // function textMerging(templatePresentationId, presentationCopyId, callback) {
+        function textMerging(templatePresentationId, callback) {
         // Use the Sheets API to load data, one record per row.
         const responses = [];
         const dataRangeNotation = 'Customers!A2:M6';
