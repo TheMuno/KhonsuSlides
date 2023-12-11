@@ -417,10 +417,11 @@
               const request = {
                 name: copyTitle,
               };
-              gapi.client.drive.files.copy({
-                fileId: templatePresentationId,
-                requests: request,
-              }).then((driveResponse) => {
+
+              // gapi.client.drive.files.copy({
+              //   fileId: templatePresentationId,
+              //   requests: request,
+              // }).then((driveResponse) => {
                 // const presentationCopyId = driveResponse.result.id;
 
                 // Create the text merge (replaceAllText) requests for this presentation.
@@ -469,7 +470,11 @@
                     if (callback) callback(responses);
                   }
                 });
-              });
+
+
+              // });
+
+
             }
 
 
