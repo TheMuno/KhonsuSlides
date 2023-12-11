@@ -104,7 +104,7 @@
           // const templatePresentationId = '1PhHqb2lYMlcoi-6snsyt1cf9xH2r8nnv2vd7UE3nbxM';  
           const templatePresentationId = '1s5zRdIWAFWbzxxriB-3NniCCj7WBKFmEBrtsN_R0Cn0';   
           
-          textMerging(templatePresentationId, ()=>{
+          await textMerging(templatePresentationId, ()=>{
             console.log('ran yes 3....')
           });
 
@@ -195,7 +195,7 @@
 
       // function textMerging(templatePresentationId, dataSpreadsheetId, callback) {
       // function textMerging(templatePresentationId, presentationCopyId, callback) {
-        function textMerging(templatePresentationId, callback) {
+      function textMerging(templatePresentationId, callback) {
         // Use the Sheets API to load data, one record per row.
         const responses = [];
         const dataRangeNotation = 'Customers!A2:M6';
