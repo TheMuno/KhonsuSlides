@@ -256,16 +256,24 @@
 
 
             const values = [
-              ['Yesse', 'Feb 02 - Feb 12'],
+              ['Yesse', 'Feb 02 - Feb 12', 
+              'Grand Central Station', 'Manhattan, NY 10036',
+              'Summit One', '45 Rockefeller Plaza, New York, NY 10111',
+              'Top Of the Rock', '30 Rockefeller Plaza, New York, NY 10112'],
               // ['Mui', 'A guy', 'Designer'],
               // ['KK', 'A gal', 'Dev'],
             ];
 
             for (let i = 0; i < values.length; ++i) {
               const row = values[i];
-              const userName = row[0]; // name in column 3
-              const travelDate = row[1]; // case description in column 6
-              // const totalPortfolio = row[2]; // total portfolio in column 12
+              const userName = row[0]; 
+              const travelDate = row[1]; 
+              const eventName1 = row[2]; 
+              const eventAddress1 = row[3]; 
+              const eventName2 = row[4]; 
+              const eventAddress2 = row[5]; 
+              const eventName3 = row[6]; 
+              const eventAddress3 = row[7]; 
 
               console.log(`userName: ${userName} \n travelDate: ${travelDate} `)//\n totalPortfolio: ${totalPortfolio}`)
 
@@ -297,6 +305,54 @@
                       matchCase: true,
                     },
                     replaceText: travelDate,
+                  },
+                }, {
+                  replaceAllText: {
+                    containsText: {
+                      text: '{{event-name-1}}',
+                      matchCase: true,
+                    },
+                    replaceText: eventName1,
+                  },
+                }, {
+                  replaceAllText: {
+                    containsText: {
+                      text: '{{event-address-1}}',
+                      matchCase: true,
+                    },
+                    replaceText: eventAddress1,
+                  },
+                }, {
+                  replaceAllText: {
+                    containsText: {
+                      text: '{{event-name-2}}',
+                      matchCase: true,
+                    },
+                    replaceText: eventName2,
+                  },
+                }, {
+                  replaceAllText: {
+                    containsText: {
+                      text: '{{event-address-2}}',
+                      matchCase: true,
+                    },
+                    replaceText: eventAddress2,
+                  },
+                }, {
+                  replaceAllText: {
+                    containsText: {
+                      text: '{{event-name-3}}',
+                      matchCase: true,
+                    },
+                    replaceText: eventName3,
+                  },
+                }, {
+                  replaceAllText: {
+                    containsText: {
+                      text: '{{event-address-3}}',
+                      matchCase: true,
+                    },
+                    replaceText: eventAddress3,
                   },
                 }];
 
