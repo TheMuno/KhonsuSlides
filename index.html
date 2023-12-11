@@ -97,10 +97,18 @@
           document.getElementById('authorize_button').innerText = 'Refresh';
           await listSlides();
 
+          const imgUrls = ['https://assets-global.website-files.com/61268cc8812ac5956bad13e4/65224587d4a92133be28cf73_Printed%20Khonsu%20Tailored%20Plan%20-%20TEMPLATE.png',
+                            'https://assets-global.website-files.com/61268cc8812ac5956bad13e4/654d862321c5794682d467d0_Statue%20Of%20Liberty.jpg',
+                            'https://assets-global.website-files.com/61268cc8812ac5956bad13e4/64ab6212f0f29612f2cfd8f9_Central%20Park%20lake%20couple.jpg'];
+
           await createPresentation('Askkhonsu-Custom-Travel-Plan', async (id)=>{
-            await createSlide(id, async (createSlideResponse)=>{
-              await createImage(createSlideResponse); 
-            }); 
+
+            for (let i = 0; i < 3 ; i++) {
+              await createSlide(id, async (createSlideResponse)=>{
+                await createImage(createSlideResponse, imgUrls[i]); 
+              }); 
+            }
+
             console.log('ran now 4....')
           });
           // await createPresentation('Askkhonsu-Custom-Travel-Plan2', undefined);
@@ -211,7 +219,7 @@
       }      
 
       // function createImage(presentationId, pageId, IMAGE_URL, callback) {
-      function createImage(createSlideResponse, callback) {
+      function createImage(createSlideResponse, IMAGE_URL, callback) {
         const {
           result: {
             presentationId,
@@ -227,9 +235,11 @@
 
         console.log(`presentationId: ${presentationId} \n objectId: ${pageId}`)
         
-        // const imageUrl = IMAGE_URL;
+        const imageUrl = IMAGE_URL;
         // const imageUrl = 'https://assets-global.website-files.com/61268cc8812ac5956bad13e4/64920afe42b4f65d85b22cb6_man%20standing%20on%20road%20infront%20of%20high-rise%20buildi.webp';
-        const imageUrl = 'https://assets-global.website-files.com/61268cc8812ac5956bad13e4/65224587d4a92133be28cf73_Printed%20Khonsu%20Tailored%20Plan%20-%20TEMPLATE.png';
+        // const imageUrl = 'https://assets-global.website-files.com/61268cc8812ac5956bad13e4/65224587d4a92133be28cf73_Printed%20Khonsu%20Tailored%20Plan%20-%20TEMPLATE.png';
+        // const imageUrl2 = 'https://assets-global.website-files.com/61268cc8812ac5956bad13e4/654d862321c5794682d467d0_Statue%20Of%20Liberty.jpg';
+        // const imageUrl3 = 'https://assets-global.website-files.com/61268cc8812ac5956bad13e4/64ab6212f0f29612f2cfd8f9_Central%20Park%20lake%20couple.jpg';
 
         // Create a new image, using the supplied object ID, with content downloaded from imageUrl.
         const requests = [];
@@ -245,20 +255,20 @@
             elementProperties: {
                 pageObjectId: pageId,
                 size: {
-                height: emu4M,
-                width: emu4M,
+                  height: emu4M,
+                  width: emu4M,
                 },
                 transform: {
-                scaleX: 1,
-                scaleY: 1,
-                translateX: 100000,
-                translateY: 100000,
-                unit: 'EMU',
+                  scaleX: 1,
+                  scaleY: 1,
+                  translateX: 100000,
+                  translateY: 100000,
+                  unit: 'EMU',
                 },
             },
             },
         });
-        // Execute the request.
+        // Execute the request. 
         try {
             gapi.client.slides.presentations.batchUpdate({
             presentationId: presentationId,
