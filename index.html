@@ -217,7 +217,7 @@
                   const objectId =
                   createSlideResponse.result.replies[0].createSlide.objectId;
                   console.log(`Created slide with ID: ${objectId}`, '(createSlide) Full response:\n', createSlideResponse); 
-                  if (callback) callback(createSlideResponse);
+                  if (callback) await callback(createSlideResponse);
                 });
         } catch (err) {
             // document.getElementById('content').innerText = err.message;
