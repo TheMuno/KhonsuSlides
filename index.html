@@ -97,8 +97,9 @@
           document.getElementById('authorize_button').innerText = 'Refresh';
           await listSlides();
 
-          await createPresentation('Askkhonsu-Custom-Travel-Plan', ()=>{
-            createSlide(); 
+          await createPresentation('Askkhonsu-Custom-Travel-Plan', (id)=>{
+            createSlide(id); 
+            console.log('ran now....')
           });
           // await createPresentation('Askkhonsu-Custom-Travel-Plan2', undefined);
 
