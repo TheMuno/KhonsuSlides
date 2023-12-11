@@ -459,6 +459,9 @@
                   requests: requests,
                 }).then((batchUpdateResponse) => {
                   const result = batchUpdateResponse.result;
+
+                  console.log('result:', result) 
+
                   responses.push(result.replies);
                   // Count the total number of replacements made.
                   let numReplacements = 0;
