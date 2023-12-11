@@ -7,7 +7,14 @@
   <body>
     <p>Slides API Quickstart</p>
 
-    <button id="drive_button">Drive API</button>
+    <!-- <button id="drive_button">Drive API</button> -->
+    <label for="uname">
+      Name: <input type="text" name="uname" id="uname">
+    </label>
+    <br>
+    <label for="date">
+      Name: <input type="text" name="date" id="date">
+    </label>
 
     <!--Add buttons to initiate auth sequence and sign out-->
     <button id="authorize_button" onclick="handleAuthClick()">Authorize</button>
@@ -254,9 +261,13 @@
           //   const values = sheetsResponse.result.values;
           //   // For each record, create a new merged presentation.
 
+          const uname = document.querySelector('#uname').value.trim() || 'Yesse';
+          const date = document.querySelector('#date').value.trim() || 'Feb 02 - Feb 12';
+
+          console.log('uname:\n', uname, 'date:\n', date) 
 
             const values = [
-              ['Yesse', 'Feb 02 - Feb 12', 
+              [uname, date, 
               'Grand Central Station', 'Manhattan, NY 10036',
               'Summit One', '45 Rockefeller Plaza, New York, NY 10111',
               'Top Of the Rock', '30 Rockefeller Plaza, New York, NY 10112'],
