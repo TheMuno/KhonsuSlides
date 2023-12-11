@@ -279,7 +279,7 @@
         });
         // Execute the request. 
         try { 
-            gapi.client.slides.presentations.batchUpdate({
+            await gapi.client.slides.presentations.batchUpdate({
               presentationId: presentationId,
               requests: requests,
             }).then((response) => {
