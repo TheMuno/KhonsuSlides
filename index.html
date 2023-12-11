@@ -115,12 +115,19 @@
           //   console.log('ran yes 3....')
           // });
 
-          gapi.client.drive.files.copy({
-            fileId: templatePresentationId,
-            requests: request,
-          }).then((driveResponse) => {
-            console.log('driveResponse:', driveResponse)
+          gapi.client.load('drive', 'v3').then(function (drive) { 
+            console.log("drive loaded") 
+
+            gapi.client.drive.files.copy({
+              fileId: templatePresentationId,
+              requests: request,
+            }).then((driveResponse) => {
+              console.log('driveResponse:', driveResponse)
+            });
+
           });
+
+          
 
           // await createPresentation('Askkhonsu-Custom-Travel-Plan', async (id)=>{
 
