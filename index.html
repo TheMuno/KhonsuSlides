@@ -109,8 +109,10 @@
             //   }); 
             // }
 
+            const presentationId = id; 
+
             for await (const url of imgUrls) {
-              await createSlide(id, async (createSlideResponse)=>{
+              await createSlide(presentationId, async (createSlideResponse)=>{
                 await createImage(createSlideResponse, url); 
               }); 
             }
@@ -174,7 +176,7 @@
         document.getElementById('content').innerText = output;
       }
 
-      function createPresentation(title, callback) {
+      async function createPresentation(title, callback) {
         try {
             gapi.client.slides.presentations.create({
                 title: title,
@@ -190,7 +192,7 @@
         }
       } 
 
-      function createSlide(presentationId, callback) {
+      async function createSlide(presentationId, callback) {
         const requests = [
             {
             createSlide: {
@@ -208,14 +210,14 @@
         try {
             gapi.client.slides.presentations
                 .batchUpdate({
-                presentationId: presentationId,
-                requests: requests,
+                  presentationId: presentationId,
+                  requests: requests,
                 })
                 .then((createSlideResponse) => {
-                const objectId =
-                createSlideResponse.result.replies[0].createSlide.objectId;
-                console.log(`Created slide with ID: ${objectId}`, '(createSlide) Full response:\n', createSlideResponse); 
-                if (callback) callback(createSlideResponse);
+                  const objectId =
+                  createSlideResponse.result.replies[0].createSlide.objectId;
+                  console.log(`Created slide with ID: ${objectId}`, '(createSlide) Full response:\n', createSlideResponse); 
+                  if (callback) callback(createSlideResponse);
                 });
         } catch (err) {
             // document.getElementById('content').innerText = err.message;
@@ -225,7 +227,7 @@
       }      
 
       // function createImage(presentationId, pageId, IMAGE_URL, callback) {
-      function createImage(createSlideResponse, IMAGE_URL, callback) {
+        async function createImage(createSlideResponse, IMAGE_URL, callback) {
         const {
           result: {
             presentationId,
@@ -275,14 +277,14 @@
             },
         });
         // Execute the request. 
-        try {
+        try { 
             gapi.client.slides.presentations.batchUpdate({
-            presentationId: presentationId,
-            requests: requests,
+              presentationId: presentationId,
+              requests: requests,
             }).then((response) => {
-            const createImageResponse = response.result.replies;
-            console.log(`Created image with ID: ${createImageResponse[0].createImage.objectId}`, '(createImage) Full response:\n', createImageResponse);
-            if (callback) callback(createImageResponse);
+              const createImageResponse = response.result.replies;
+              console.log(`Created image with ID: ${createImageResponse[0].createImage.objectId}`, '(createImage) Full response:\n', createImageResponse);
+              if (callback) callback(createImageResponse);
             });
         } catch (err) {
             document.getElementById('content').innerText = err.message;
