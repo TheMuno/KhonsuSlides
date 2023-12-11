@@ -110,7 +110,7 @@
             //   console.log('ran yes 2....')
             // });
 
-            textMerging(templatePresentationId, id, ()=>{
+            textMerging(templatePresentationId, templatePresentationId, ()=>{
               console.log('ran yes 3....')
             });
 
@@ -454,7 +454,6 @@
 
                 // Execute the requests for this presentation.
                 gapi.client.slides.presentations.batchUpdate({
-                  // presentationId: presentationCopyId,
                   presentationId: presentationCopyId,
                   requests: requests,
                 }).then((batchUpdateResponse) => {
