@@ -7,6 +7,8 @@
   <body>
     <p>Slides API Quickstart</p>
 
+    <button id="drive_button" onclick="handleDriveClick()">Drive API</button>
+
     <!--Add buttons to initiate auth sequence and sign out-->
     <button id="authorize_button" onclick="handleAuthClick()">Authorize</button>
     <button id="signout_button" onclick="handleSignoutClick()">Sign Out</button>
@@ -14,6 +16,11 @@
     <pre id="content" style="white-space: pre-wrap;"></pre>
 
     <script type="text/javascript">
+
+      document.querySelector('#drive_button').addEventListener('click', () => {
+        window.open('drive.html');
+      });
+
       /* exported gapiLoaded */
       /* exported gisLoaded */
       /* exported handleAuthClick */
