@@ -101,7 +101,7 @@
             await createSlide(id, async (createSlideResponse)=>{
               await createImage(createSlideResponse); 
             }); 
-            console.log('ran now 3....')
+            console.log('ran now 4....')
           });
           // await createPresentation('Askkhonsu-Custom-Travel-Plan2', undefined);
 
@@ -216,7 +216,11 @@
           result: {
             presentationId,
             replies: [
-              { objectId: pageId }
+              { 
+                createSlide: {
+                  objectId: pageId
+                }
+              }
             ], 
           },
         } = createSlideResponse; 
