@@ -28,7 +28,7 @@
 
       // Authorization scopes required by the API; multiple scopes can be
       // included, separated by spaces.
-      const SCOPES = 'https://www.googleapis.com/auth/presentations';
+      const SCOPES = 'https://www.googleapis.com/auth/presentations, https://www.googleapis.com/auth/drive';
 
       let tokenClient;
       let gapiInited = false;
@@ -113,22 +113,6 @@
             textMerging(templatePresentationId, templatePresentationId, ()=>{
               console.log('ran yes 3....')
             });
-
-            // for (let i = 0; i < 3 ; i++) {
-            //   await createSlide(id, async (createSlideResponse)=>{
-            //     await createImage(createSlideResponse, imgUrls[i]); 
-            //   }); 
-            // }
-
-            // const presentationId = id; 
-
-            // for await (const url of imgUrls) {
-            //   await createSlide(presentationId, async (createSlideResponse)=>{
-            //     await createTextboxWithText(createSlideResponse);
-            //     await createImage(createSlideResponse, url); 
-            //   }); 
-            // }
-
             
           });
           // await createPresentation('Askkhonsu-Custom-Travel-Plan2', undefined);
@@ -202,187 +186,7 @@
             console.log(`Error: ${err.message}`)
             return;
         }
-      } 
-
-      async function createSlide(presentationId, callback) {
-        const requests = [
-            {
-            createSlide: {
-                // objectId: pageId,
-                insertionIndex: '1',
-                slideLayoutReference: {
-                predefinedLayout: 'TITLE_AND_TWO_COLUMNS',
-                },
-            },
-            },
-        ];
-        // If you wish to populate the slide with elements, add element create requests here,
-        // using the pageId.
-        // Execute the request.
-        try {
-            gapi.client.slides.presentations
-                .batchUpdate({
-                  presentationId: presentationId,
-                  requests: requests,
-                })
-                .then((createSlideResponse) => {
-                  const objectId =
-                  createSlideResponse.result.replies[0].createSlide.objectId;
-                  console.log(`Created slide with ID: ${objectId}`, '(createSlide) Full response:\n', createSlideResponse); 
-                  return callback(createSlideResponse); 
-                });
-        } catch (err) {
-            // document.getElementById('content').innerText = err.message;
-            console.log(`Error: ${err.message}`)
-            return;
-        }
-      }      
-
-      // function createImage(presentationId, pageId, IMAGE_URL, callback) {
-        async function createImage(createSlideResponse, IMAGE_URL, callback) {
-          console.log('Just ran createImage') 
-        const {
-          result: {
-            presentationId,
-            replies: [
-              { 
-                createSlide: {
-                  objectId: pageId
-                }
-              }
-            ], 
-          },
-        } = createSlideResponse; 
-
-        // console.log(`presentationId: ${presentationId} \n objectId: ${pageId}`)
-        
-        const imageUrl = IMAGE_URL;
-        // const imageUrl = 'https://assets-global.website-files.com/61268cc8812ac5956bad13e4/64920afe42b4f65d85b22cb6_man%20standing%20on%20road%20infront%20of%20high-rise%20buildi.webp';
-        // const imageUrl = 'https://assets-global.website-files.com/61268cc8812ac5956bad13e4/65224587d4a92133be28cf73_Printed%20Khonsu%20Tailored%20Plan%20-%20TEMPLATE.png';
-        // const imageUrl2 = 'https://assets-global.website-files.com/61268cc8812ac5956bad13e4/654d862321c5794682d467d0_Statue%20Of%20Liberty.jpg';
-        // const imageUrl3 = 'https://assets-global.website-files.com/61268cc8812ac5956bad13e4/64ab6212f0f29612f2cfd8f9_Central%20Park%20lake%20couple.jpg';
-
-        // Create a new image, using the supplied object ID, with content downloaded from imageUrl.
-        const requests = [];
-        const imageId = 'MyImage_02';
-        const emu4M = {
-            magnitude: 4000000,
-            unit: 'EMU',
-        };
-        requests.push({
-            createImage: {
-              objectId: imageId,
-              url: imageUrl,
-              elementProperties: {
-                  pageObjectId: pageId,
-                  size: {
-                    height: emu4M,
-                    width: emu4M,
-                  },
-                  transform: {
-                    scaleX: 1,
-                    scaleY: 1,
-                    translateX: 100000,
-                    translateY: 100000,
-                    unit: 'EMU',
-                  },
-              },
-            },
-        });
-        // Execute the request. 
-        try { 
-            await gapi.client.slides.presentations.batchUpdate({
-              presentationId: presentationId,
-              requests: requests,
-            }).then((response) => {
-              const createImageResponse = response.result.replies;
-              console.log(`Created image with ID: ${createImageResponse[0].createImage.objectId}`, '(createImage) Full response:\n', createImageResponse);
-              if (callback) callback(createImageResponse);
-            });
-        } catch (err) {
-            document.getElementById('content').innerText = err.message;
-            return;
-        }
-      }
-      
-      
-      // setTimeout(() => {
-      //   // createPresentation('Askkhonsu-Custom-Travel-Plan', undefined);
-      //   console.log('Ran.....'); 
-
-      //   gapi.client.slides.presentations.create({
-      //       title: 'Askkhonsu-Custom-Travel-Plan',
-      //   }).then((response) => {
-      //     console.log('response:', response)
-      //   });
-
-      // }, 30000);
-
-      function createTextboxWithText(createSlideResponse) {
-        const {
-          result: {
-            presentationId,
-            replies: [
-              { 
-                createSlide: {
-                  objectId: pageId
-                }
-              }
-            ], 
-          },
-        } = createSlideResponse; 
-        // Create a new square textbox, using the supplied element ID.
-        const elementId = 'MyTextBox_01';
-        const pt350 = {
-          magnitude: 350,
-          unit: 'PT',
-        };
-        const requests = [{
-          createShape: {
-            objectId: elementId,
-            shapeType: 'TEXT_BOX',
-            elementProperties: {
-              pageObjectId: pageId,
-              size: {
-                height: pt350,
-                width: pt350,
-              },
-              transform: {
-                scaleX: 1,
-                scaleY: 1,
-                translateX: 350,
-                translateY: 100,
-                unit: 'PT',
-              },
-            },
-          },
-        },
-
-        // Insert text into the box, using the supplied element ID.
-        {
-          insertText: {
-            objectId: elementId,
-            insertionIndex: 0,
-            text: 'New Box Text Inserted!',
-          },
-        }];
-        // Execute the request.
-        try {
-          gapi.client.slides.presentations.batchUpdate({
-            presentationId: presentationId,
-            requests: requests,
-          }).then((createTextboxWithTextResponse) => {
-            const createShapeResponse = createTextboxWithTextResponse.result.replies[0].createShape;
-            console.log(`Created textbox with ID: ${createShapeResponse.objectId}`);
-            if (callback) callback(createTextboxWithTextResponse.result);
-          });
-        } catch (err) {
-          document.getElementById('content').innerText = err.message;
-          return;
-        }
-      }
-
-
+      }   
       
 
       // function textMerging(templatePresentationId, dataSpreadsheetId, callback) {
@@ -395,8 +199,8 @@
           //   spreadsheetId: dataSpreadsheetId,
           //   range: dataRangeNotation,
           // }).then((sheetsResponse) => {
-            // const values = sheetsResponse.result.values;
-            // For each record, create a new merged presentation.
+          //   const values = sheetsResponse.result.values;
+          //   // For each record, create a new merged presentation.
 
 
             const values = [
@@ -419,11 +223,11 @@
                 name: copyTitle,
               };
 
-              // gapi.client.drive.files.copy({
-              //   fileId: templatePresentationId,
-              //   requests: request,
-              // }).then((driveResponse) => {
-                // const presentationCopyId = driveResponse.result.id;
+              gapi.client.drive.files.copy({
+                fileId: templatePresentationId,
+                requests: request,
+              }).then((driveResponse) => {
+                const presentationCopyId = driveResponse.result.id;
 
                 // Create the text merge (replaceAllText) requests for this presentation.
                 const requests = [{
@@ -475,7 +279,7 @@
                 });
 
 
-              // });
+              });
 
 
             }
