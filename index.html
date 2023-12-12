@@ -228,6 +228,18 @@
 
         console.log('Files Response:', response, '\n Files', gapi.client.drive.files)
 
+        try {
+          const result = await gapi.client.drive.files.export({
+            fileId: '1mZW6129DaPqH1CFt49R75H20n014CNbGtc66_vZWSQM',
+            mimeType: 'application/pdf',
+          });
+          console.log(result.status);
+          return result;
+        } catch (err) {
+          // TODO(developer) - Handle error
+          throw err;
+        }
+
         const files = response.result.files;
         if (!files || files.length == 0) {
           document.getElementById('content').innerText = 'No files found.';
