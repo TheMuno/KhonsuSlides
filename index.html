@@ -218,7 +218,8 @@
         try {
           response = await gapi.client.drive.files.list({
             'pageSize': 10,
-            'fields': 'files(id, name, webContentLink)',
+            // 'fields': 'files(id, name, webContentLink)',
+            'fields': 'files(id, webContentLink)',
           });
         } catch (err) {
           document.getElementById('content').innerText = err.message;
