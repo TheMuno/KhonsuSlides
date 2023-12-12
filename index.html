@@ -21,9 +21,16 @@
     <button id="authorize_button" onclick="handleAuthClick()">Authorize</button>
     <button id="signout_button" onclick="handleSignoutClick()">Sign Out</button>
 
+    <button class="publish">Publish To Web</button>
+
     <pre id="content" style="white-space: pre-wrap;"></pre>
 
     <script type="text/javascript">
+
+      document.querySelector('.publish').addEventListener('click', ()=>{
+        const link = 'https://docs.google.com/presentation/d/1DbtSZWDkHHHfUKwheiDENcg0xMml89CYVHyS1Q-0dd4/preview';
+        window.open(link);
+      });
 
       /* exported gapiLoaded */
       /* exported gisLoaded */
@@ -261,7 +268,7 @@
           const uname = document.querySelector('#uname').value.trim() || 'Yesse';
           const date = document.querySelector('#date').value.trim() || 'Feb 02 - Feb 12';
 
-          console.log('uname:\n', uname, 'date:\n', date) 
+          console.log('uname:\n', uname, '\ndate:\n', date) 
 
             const values = [
               [uname, date, 
@@ -271,6 +278,27 @@
               // ['Mui', 'A guy', 'Designer'],
               // ['KK', 'A gal', 'Dev'],
             ];
+
+            // values.forEach(row => {
+            //   const userName = row[0]; 
+            //   const travelDate = row[1]; 
+            //   const eventName1 = row[2]; 
+            //   const eventAddress1 = row[3]; 
+            //   const eventName2 = row[4]; 
+            //   const eventAddress2 = row[5]; 
+            //   const eventName3 = row[6]; 
+            //   const eventAddress3 = row[7]; 
+
+            //   const requests = [];
+            //   const replaceText = {};
+            //   replaceText.containsText = {
+            //       text: '{{travel-date}}',
+            //       matchCase: true,
+            //   };
+            //   replaceText.replaceText = travelDate;
+            //   requests.push({replaceText});
+
+            // });
 
             for (let i = 0; i < values.length; ++i) {
               const row = values[i];
@@ -296,6 +324,15 @@
                 requests: request,
               }).then((driveResponse) => {
                 const presentationCopyId = driveResponse.result.id;
+
+                // const requests = [];
+                // const replaceText = {};
+                // replaceText.containsText = {
+                //     text: '{{travel-date}}',
+                //     matchCase: true,
+                // };
+                // replaceText.replaceText = travelDate;
+                // requests.push({replaceText}); 
 
                 // Create the text merge (replaceAllText) requests for this presentation.
                 const requests = [{
