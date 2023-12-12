@@ -3,6 +3,11 @@
   <head>
     <title>Slides API Quickstart</title>
     <meta charset="utf-8" />
+    <style>
+      .publish.hide {
+        display: none; 
+      }
+    </style>
   </head>
   <body>
     <p>Slides API Quickstart</p>
@@ -21,16 +26,13 @@
     <button id="authorize_button" onclick="handleAuthClick()">Authorize</button>
     <button id="signout_button" onclick="handleSignoutClick()">Sign Out</button>
 
-    <button class="publish">Publish To Web</button>
+    <button class="publish hide">Publish To Web</button>
 
     <pre id="content" style="white-space: pre-wrap;"></pre>
 
     <script type="text/javascript">
 
-      document.querySelector('.publish').addEventListener('click', ()=>{
-        const link = 'https://docs.google.com/presentation/d/1DbtSZWDkHHHfUKwheiDENcg0xMml89CYVHyS1Q-0dd4/preview';
-        window.open(link);
-      });
+      const $publishBtn = document.querySelector('.publish'); 
 
       /* exported gapiLoaded */
       /* exported gisLoaded */
@@ -423,6 +425,12 @@
                   }
                 });
 
+
+                const publishLink = `https://docs.google.com/presentation/d/${presentationCopyId}/preview`;
+                $publishBtn.classList.remove('hide');
+                $publishBtn.addEventListener('click', ()=>{
+                  window.open(publishLink);
+                });
 
               });
 
