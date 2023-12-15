@@ -4,14 +4,15 @@
     <title>Slides API Quickstart</title>
     <meta charset="utf-8" />
     <style>
-      .publish.hide {
+      .publish.hide,
+      .download.hide {
         display: none; 
       }
     </style>
   </head>
   <body>
     <p>Slides API Quickstart</p>
-
+ 
     <!-- <button id="drive_button">Drive API</button> -->
     <label for="uname">
       Name: <input type="text" name="uname" id="uname" placeholder="Name">
@@ -27,7 +28,7 @@
     <button id="signout_button" onclick="handleSignoutClick()">Sign Out</button>
 
     <button class="publish hide">Publish To Web</button>
-    <button class="download">Download</button>
+    <button class="download hide">Download</button>
 
     <pre id="content" style="white-space: pre-wrap;"></pre>
 
@@ -455,6 +456,7 @@
                 });
 
                 // setup download btn 
+                $downloadBtn.classList.remove('hide');
                 $downloadBtn.addEventListener('click', e => {
                   const webhookurl = 'https://hooks.zapier.com/hooks/catch/3203471/3at2mr7/';
                   fetch(webhookurl, {
