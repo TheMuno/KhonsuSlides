@@ -8,6 +8,21 @@
       .download.hide {
         display: none; 
       }
+
+      .btns {
+
+      }
+
+      button {
+        height: 30px;
+        width: 200px;
+        margin: 5px; 
+      }
+
+      label input {
+        height: 30px;
+        width: 300px; 
+      }
     </style>
   </head>
   <body>
@@ -23,12 +38,14 @@
     </label>
     <br>
 
-    <!--Add buttons to initiate auth sequence and sign out-->
-    <button id="authorize_button" onclick="handleAuthClick()">Authorize</button>
-    <button id="signout_button" onclick="handleSignoutClick()">Sign Out</button>
+    <div class="btns">
+      <!--Add buttons to initiate auth sequence and sign out-->
+      <button id="authorize_button" onclick="handleAuthClick()">Authorize</button>
+      <button id="signout_button" onclick="handleSignoutClick()">Sign Out</button>
 
-    <button class="publish hide">Publish To Web</button>
-    <button class="download hide">Download</button>
+      <button class="publish hide">Publish To Web</button>
+      <button class="download hide">Download</button>
+    </div>
 
     <pre id="content" style="white-space: pre-wrap;"></pre>
 
@@ -447,24 +464,18 @@
 
 
                 // setup publish link btn
-                const publishLink = `https://docs.google.com/presentation/d/${presentationCopyId}/preview`; 
-                // change the url from /preview to /preview?rm=minimal to remove the slide controls if needed
-
                 $publishBtn.classList.remove('hide');
                 $publishBtn.addEventListener('click', ()=>{
+                  const publishLink = `https://docs.google.com/presentation/d/${presentationCopyId}/preview`; 
+                  // change the url from /preview to /preview?rm=minimal to remove the slide controls if needed
                   window.open(publishLink);
                 });
 
                 // setup download btn 
                 $downloadBtn.classList.remove('hide');
                 $downloadBtn.addEventListener('click', e => {
-                  const webhookurl = 'https://hooks.zapier.com/hooks/catch/3203471/3at2mr7/';
-                  fetch(webhookurl, {
-                    method: 'POST',
-                    body: JSON.stringify({presentationCopyId}), 
-                  })
-                  .then(res => res.json())
-                  .then(d => console.log(d));
+                  const downloadLink = `https://docs.google.com/presentation/d/${presentationCopyId}/export?format=pdf`;
+                  window.open(publishLink);
                 });
 
               });
