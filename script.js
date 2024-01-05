@@ -1,61 +1,4 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>Slides API Quickstart</title>
-    <meta charset="utf-8" />
-    <style>
-      .publish.hide,
-      .download.hide {
-        display: none; 
-      }
-
-      .btns { 
-        display: flex;
-        flex-direction: column;
-      }
-
-      button {
-        height: 30px;
-        width: 200px;
-        margin-bottom: 5px;
-      }
-
-      label input {
-        height: 30px;
-        width: 300px; 
-        margin-bottom: 5px;
-      }
-    </style>
-  </head>
-  <body>
-    <p>Slides API Quickstart</p>
- 
-    <!-- <button id="drive_button">Drive API</button> -->
-    <label for="uname">
-      Name: <input type="text" name="uname" id="uname" placeholder="Name">
-    </label>
-    <br>
-    <label for="date">
-      Travel Dates: <input type="text" name="date" id="date" placeholder="Feb 02 - Feb 12">
-    </label>
-    <br>
-
-    <div class="btns">
-      <!--Add buttons to initiate auth sequence and sign out-->
-      <button id="authorize_button" onclick="handleAuthClick()">Authorize</button>
-      <button id="signout_button" onclick="handleSignoutClick()">Sign Out</button>
-
-      <button class="publish hide">Publish To Web</button>
-      <button class="download hide">Download</button>
-    </div>
-
-    <pre id="content" style="white-space: pre-wrap;"></pre>
-
-    <script src="script.js"></script> 
-    
-    <!-- <script type="text/javascript">
-
-      const $publishBtn = document.querySelector('.publish'); 
+const $publishBtn = document.querySelector('.publish'); 
       const $downloadBtn = document.querySelector('.download');
  
 
@@ -694,9 +637,3 @@
           return;
         }
       }
-
-    </script> --> 
-    <script async defer src="https://apis.google.com/js/api.js" onload="gapiLoaded()"></script>
-    <script async defer src="https://accounts.google.com/gsi/client" onload="gisLoaded()"></script>
-  </body>
-</html>  
