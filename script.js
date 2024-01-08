@@ -38,9 +38,7 @@ async function retrieveSavedMarkersFromFirebase(userMail, arrivalDate=undefined)
 
     // const startDate = new Date(arrivalDate.replaceAll('-','/')); 
 
-    const requests = []; 
-
-    const nameObj = {
+    const requests = [{
         replaceAllText: {
             containsText: {
                 text: '{{user-name}}',
@@ -48,9 +46,16 @@ async function retrieveSavedMarkersFromFirebase(userMail, arrivalDate=undefined)
             },
             replaceText: userName,
         },
-    }; 
+    }, {
+        replaceAllText: {
+            containsText: {
+                text: '{{travel-date}}',
+                matchCase: true,
+            },
+            replaceText: 'Dec 01 - Dec 03',
+        },
+    }]; 
 
-    requests.push(nameObj);
 
     for (let [day, locations] of Object.entries(userData)) {
         if (day.startsWith('_')) {
