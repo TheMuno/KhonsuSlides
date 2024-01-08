@@ -316,7 +316,8 @@ async function textMerging(templatePresentationId, requests, callback) {
         //     console.log(`userName: ${userName} \n travelDate: ${travelDate} `)//\n totalPortfolio: ${totalPortfolio}`)
 
             // Duplicate the template presentation using the Drive API.
-            const copyTitle = userName + ' presentation';
+            // const copyTitle = userName + ' presentation';
+            const copyTitle = 'Sample presentation';
             const request = {
                 name: copyTitle,
             };
