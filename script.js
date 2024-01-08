@@ -37,7 +37,7 @@ async function retrieveSavedMarkersFromFirebase(userMail, arrivalDate=undefined)
     // const startDate = new Date(arrivalDate.replaceAll('-','/')); 
 
     for (let [day, locations] of Object.entries(userData)) {
-        if (entry.startsWith('_')) {
+        if (day.startsWith('_')) {
 
             console.log('Day:', day)
 
