@@ -388,7 +388,7 @@ async function textMerging(templatePresentationId, requests, callback) {
                         numReplacements += result.replies[i].replaceAllText.occurrencesChanged;
                     }
 
-                    console.log(`Created presentation for ${userName} with ID: ${presentationCopyId}`);
+                    // console.log(`Created presentation for ${userName} with ID: ${presentationCopyId}`);
                     console.log(`Replaced ${numReplacements} text instances`);
 
                     if (responses.length === values.length) { // callback for the last value
