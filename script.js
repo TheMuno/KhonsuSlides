@@ -738,4 +738,13 @@ try {
 }
 
 
+const script1 = document.createElement('script');
+document.body.appendChild(script1);
+script1.onload = gapiLoaded; 
+script1.src = 'https://apis.google.com/js/api.js';
+
+const script2 = document.createElement('script');
+document.body.appendChild(script2);
+script2.onload = gisLoaded; 
+script2.src = 'https://accounts.google.com/gsi/client';
 
