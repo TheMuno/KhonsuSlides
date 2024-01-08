@@ -806,11 +806,14 @@ async function retrieveSavedMarkersFromFirebase(userMail, arrivalDate) {
       script1.onload = gapiLoaded; 
       script1.src = 'https://apis.google.com/js/api.js';
 
-
+      const script2 = document.createElement('script');
+      document.body.appendChild(script2);
+      script2.onload = gisLoaded; 
+      script2.src = 'https://accounts.google.com/gsi/client';
 
     </script> 
     <!-- <script type="module" src="script.js"></script>  -->
     <!-- <script async defer src="https://apis.google.com/js/api.js" onload="gapiLoaded()"></script> -->
-    <script async defer src="https://accounts.google.com/gsi/client" onload="gisLoaded()"></script>
+    <!-- <script async defer src="https://accounts.google.com/gsi/client" onload="gisLoaded()"></script> -->
   </body>
 </html>  
