@@ -64,7 +64,8 @@ async function retrieveSavedMarkersFromFirebase(userMail, arrivalDate=undefined)
 
             locations.forEach(locat => {
                 // const containsTxt = locat.dayEventName;
-                const replaceTxt = locat.title;
+                // const replaceTxt = locat.title;
+                const replaceTxt = locat.dayEventName;
                 
                 const replaceTxtObj = makeRequestsObj(replaceTxt); 
                 requests.push(replaceTxtObj);
@@ -92,6 +93,7 @@ async function retrieveSavedMarkersFromFirebase(userMail, arrivalDate=undefined)
         return o; 
     }
 
+    console.log('requests', requests)
     return requests; 
 
 }
