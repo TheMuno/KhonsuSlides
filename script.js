@@ -391,9 +391,9 @@ async function textMerging(templatePresentationId, requests, callback) {
                     // console.log(`Created presentation for ${userName} with ID: ${presentationCopyId}`);
                     console.log(`Replaced ${numReplacements} text instances`);
 
-                    if (responses.length === values.length) { // callback for the last value
-                        if (callback) callback(responses);
-                    }
+                    // if (responses.length === values.length) { // callback for the last value
+                    //     if (callback) callback(responses);
+                    // }
                 });
 
 
