@@ -748,3 +748,4 @@ document.body.appendChild(script2);
 script2.onload = gisLoaded; 
 script2.src = 'https://accounts.google.com/gsi/client';
 
+document.querySelector('#authorize_button').addEventListener('click', handleAuthClick);
