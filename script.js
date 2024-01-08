@@ -18,7 +18,7 @@ const app = initializeApp(firebaseConfig);
 // Initialize Cloud Firestore and get a reference to the service
 const db = getFirestore(app);   
 
-async function retrieveSavedMarkersFromFirebase(userMail, arrivalDate) {
+async function retrieveSavedMarkersFromFirebase(userMail, arrivalDate=undefined) {
     const docRef = doc(db, 'Locations', `User-${userMail}`);
     const docSnap = await getDoc(docRef);
 
@@ -28,59 +28,21 @@ async function retrieveSavedMarkersFromFirebase(userMail, arrivalDate) {
         return; 
     } 
 
+    const userName = userMail.substring(userMail.indexOf('-')+1, userMail.indexOf('@'));
+
     const userData = sortObject(docSnap.data());
 
     // const $daySlide = document.querySelector(`.cs_slide.${daySlideNum}`); 
 
-    const startDate = new Date(arrivalDate.replaceAll('-','/')); 
+    // const startDate = new Date(arrivalDate.replaceAll('-','/')); 
 
-    for (let [entry, locations] of Object.entries(userData)) {
+    for (let [day, locations] of Object.entries(userData)) {
         if (entry.startsWith('_')) {
-            const day = entry; 
 
             console.log('Day:', day)
 
-            /* const dayNum = day.split('Day')[1]; 
-
-            let daysDate = '';
-
-            if (dayNum === '1') {
-                const daysDateLen = startDate.toDateString().length;      
-                daysDate = startDate.toDateString().slice(-daysDateLen, -5);
-
-                // clearSlideCells($daySlide); 
-
-                // setupDays(locations, $daySlide, dayNum, daysDate)
-            }
-            else {
-                daysDate = new Date( startDate.setDate( startDate.getDate() + 1 ) ).toDateString(); 
-                const daysDateLen = daysDate.length;      
-                daysDate = daysDate.slice(-daysDateLen, -5);
-
-                // const $daySlideClone = $daySlide.cloneNode(true);
-                // $daySlideClone.classList.remove(`.${daySlideNum}`);  
-
-                // clearSlideCells($daySlideClone); 
-
-                // const $daySlideNext = $slideContainer.querySelector(`.cs_slide.${daySlideNumNext}`); 
-
-                // setupDays(locations, $daySlideClone, dayNum, daysDate)
-
-                // $slideContainer.insertBefore($daySlideClone, $daySlideNext);  
-            }   */ 
+            
         }
-        /*else {
-            if (entry.toLowerCase() === 'khonsunotes') { 
-                setupKhonsuNotes(locations); 
-            }
-            else if (entry.toLowerCase() === 'reservations') { 
-                setupReservations(locations); 
-            }
-            else if (entry.toLowerCase() === 'mapurl') {
-                setupMapUrl(locations); 
-            } 
-        }*/
-
     } 
 
     function sortObject(obj) {
@@ -91,7 +53,7 @@ async function retrieveSavedMarkersFromFirebase(userMail, arrivalDate) {
     }
 }
 
-
+retrieveSavedMarkersFromFirebase('one@mail.com'); 
 
 
 
@@ -199,33 +161,6 @@ tokenClient.callback = async (resp) => {
     console.log('ran yes....')
     });
 
-    // gapi.client.load('drive', 'v3').then(function (drive) { 
-    //   console.log("drive loaded") 
-
-    //   gapi.client.drive.files.copy({
-    //     fileId: templatePresentationId,
-    //     requests: request,
-    //   }).then((driveResponse) => {
-    //     console.log('driveResponse:', driveResponse)
-    //   });
-
-    // });
-
-    
-
-    // await createPresentation('Askkhonsu-Custom-Travel-Plan', async (id)=>{
-
-    //   // textMerging(templatePresentationId, ()=>{
-    //   //   console.log('ran yes 2....')
-    //   // });
-
-    //   textMerging(templatePresentationId, ()=>{
-    //     console.log('ran yes 3....')
-    //   });
-    
-    // });
-    // await createPresentation('Askkhonsu-Custom-Travel-Plan2', undefined);
-
 };
 
 if (gapi.client.getToken() === null) {
@@ -252,34 +187,6 @@ if (token !== null) {
 }
 }
 
-/**
- * Prints the number of slides and elements in a sample presentation:
- * https://docs.google.com/presentation/d/1EAYk18WDjIG-zp_0vLm3CsfQh_i8eXc67Jo2O9C6Vuc/edit
- */
-// async function listSlides() {
-//   let response;
-//   try {
-//     response = await gapi.client.slides.presentations.get({
-//       presentationId: '1EAYk18WDjIG-zp_0vLm3CsfQh_i8eXc67Jo2O9C6Vuc',
-//     });
-//   } catch (err) {
-//     document.getElementById('content').innerText = err.message;
-//     return;
-//   }
-//   const presentation = response.result;
-//   if (!presentation || !presentation.slides || presentation.slides.length == 0) {
-//     document.getElementById('content').innerText = 'No slides found.';
-//     return;
-//   }
-//   // Flatten to string to display
-//   const output = presentation.slides.reduce(
-//       (str, slide, index) => {
-//         const numElements = slide.pageElements.length;
-//         return `${str}- Slide #${index} contains ${numElements} elements\n`;
-//       },
-//       'Slides:\n');
-//   document.getElementById('content').innerText = output;
-// }
 
 async function listFiles() {
 let response;
@@ -296,17 +203,6 @@ try {
 
 console.log('Files Response:', response, '\n Files', gapi.client.drive.files)
 
-// try {
-//   const result = await gapi.client.drive.files.export({
-//     fileId: '1mZW6129DaPqH1CFt49R75H20n014CNbGtc66_vZWSQM',
-//     mimeType: 'application/pdf',
-//   });
-//   console.log(result.status, result);
-//   return result;
-// } catch (err) {
-//   // TODO(developer) - Handle error
-//   throw err;
-// }
 
 const files = response.result.files;
 if (!files || files.length == 0) {
@@ -320,223 +216,7 @@ const output = files.reduce(
 document.getElementById('content').innerText = output;
 }
 
-// async function createPresentation(title, callback) {
-//   try {
-//       gapi.client.slides.presentations.create({
-//           title: title,
-//       }).then((response) => {
-//           console.log(`Created presentation with ID: ${response.result.presentationId}`, '(createPresentation) Full response:\n', response);
-//           const id = response.result.presentationId; 
-//           if (callback) callback(id, callback);
-//       });
-//   } catch (err) {
-//       // document.getElementById('content').innerText = err.message;
-//       console.log(`Error: ${err.message}`)
-//       return;
-//   }
-// }   
 
-
-// function textMerging(templatePresentationId, dataSpreadsheetId, callback) {
-// function textMerging(templatePresentationId, presentationCopyId, callback) {
-/* async function textMerging(templatePresentationId, callback) {
-// Use the Sheets API to load data, one record per row.
-const responses = [];
-const dataRangeNotation = 'Customers!A2:M6';
-try {
-    // gapi.client.sheets.spreadsheets.values.get({
-    //   spreadsheetId: dataSpreadsheetId,
-    //   range: dataRangeNotation,
-    // }).then((sheetsResponse) => {
-    //   const values = sheetsResponse.result.values;
-    //   // For each record, create a new merged presentation.
-
-    const uname = document.querySelector('#uname').value.trim() || 'Yesse';
-    const date = document.querySelector('#date').value.trim() || 'Feb 02 - Feb 12';
-
-    console.log('uname:\n', uname, '\ndate:\n', date) 
-
-    const values = [
-        [uname, date, 
-        'Grand Central Station', 'Manhattan, NY 10036',
-        'Summit One', '45 Rockefeller Plaza, New York, NY 10111',
-        'Top Of the Rock', '30 Rockefeller Plaza, New York, NY 10112'],
-        // ['Mui', 'A guy', 'Designer'],
-        // ['KK', 'A gal', 'Dev'],
-    ];
-
-    // values.forEach(row => {
-    //   const userName = row[0]; 
-    //   const travelDate = row[1]; 
-    //   const eventName1 = row[2]; 
-    //   const eventAddress1 = row[3]; 
-    //   const eventName2 = row[4]; 
-    //   const eventAddress2 = row[5]; 
-    //   const eventName3 = row[6]; 
-    //   const eventAddress3 = row[7]; 
-
-    //   const requests = [];
-    //   const replaceText = {};
-    //   replaceText.containsText = {
-    //       text: '{{travel-date}}',
-    //       matchCase: true,
-    //   };
-    //   replaceText.replaceText = travelDate;
-    //   requests.push({replaceText});
-
-    // });
-
-    for (let i = 0; i < values.length; ++i) {
-        const row = values[i];
-        const userName = row[0]; 
-        const travelDate = row[1]; 
-        const eventName1 = row[2]; 
-        const eventAddress1 = row[3]; 
-        const eventName2 = row[4]; 
-        const eventAddress2 = row[5]; 
-        const eventName3 = row[6]; 
-        const eventAddress3 = row[7]; 
-
-        console.log(`userName: ${userName} \n travelDate: ${travelDate} `)//\n totalPortfolio: ${totalPortfolio}`)
-
-        // Duplicate the template presentation using the Drive API.
-        const copyTitle = userName + ' presentation';
-        const request = {
-        name: copyTitle,
-        };
-
-        gapi.client.drive.files.copy({
-        fileId: templatePresentationId,
-        requests: request,
-        }).then((driveResponse) => {
-        const presentationCopyId = driveResponse.result.id;
-
-        // const requests = [];
-        // const replaceText = {};
-        // replaceText.containsText = {
-        //     text: '{{travel-date}}',
-        //     matchCase: true,
-        // };
-        // replaceText.replaceText = travelDate;
-        // requests.push({replaceText}); 
-
-        // Create the text merge (replaceAllText) requests for this presentation.
-        const requests = [{
-            replaceAllText: {
-            containsText: {
-                text: '{{user-name}}',
-                matchCase: true,
-            },
-            replaceText: userName,
-            },
-        }, {
-            replaceAllText: {
-            containsText: {
-                text: '{{travel-date}}',
-                matchCase: true,
-            },
-            replaceText: travelDate,
-            },
-        }, {
-            replaceAllText: {
-            containsText: {
-                text: '{{event-name-1}}',
-                matchCase: true,
-            },
-            replaceText: eventName1,
-            },
-        }, {
-            replaceAllText: {
-            containsText: {
-                text: '{{event-address-1}}',
-                matchCase: true,
-            },
-            replaceText: eventAddress1,
-            },
-        }, {
-            replaceAllText: {
-            containsText: {
-                text: '{{event-name-2}}',
-                matchCase: true,
-            },
-            replaceText: eventName2,
-            },
-        }, {
-            replaceAllText: {
-            containsText: {
-                text: '{{event-address-2}}',
-                matchCase: true,
-            },
-            replaceText: eventAddress2,
-            },
-        }, {
-            replaceAllText: {
-            containsText: {
-                text: '{{event-name-3}}',
-                matchCase: true,
-            },
-            replaceText: eventName3,
-            },
-        }, {
-            replaceAllText: {
-            containsText: {
-                text: '{{event-address-3}}',
-                matchCase: true,
-            },
-            replaceText: eventAddress3,
-            },
-        }];
-
-        // Execute the requests for this presentation.
-        gapi.client.slides.presentations.batchUpdate({
-            presentationId: presentationCopyId,
-            requests: requests,
-        }).then((batchUpdateResponse) => {
-            const result = batchUpdateResponse.result;
-
-            // console.log('requests:', requests, '\nresult:', result, 'batchUpdateResponse:', batchUpdateResponse)  
-
-            responses.push(result.replies);
-            // Count the total number of replacements made.
-            let numReplacements = 0;
-            for (let i = 0; i < result.replies.length; ++i) {
-            numReplacements += result.replies[i].replaceAllText.occurrencesChanged;
-            }
-            console.log(`Created presentation for ${userName} with ID: ${presentationCopyId}`);
-            console.log(`Replaced ${numReplacements} text instances`);
-            if (responses.length === values.length) { // callback for the last value
-            if (callback) callback(responses);
-            }
-        });
-
-
-        // setup publish link btn
-        $publishBtn.classList.remove('hide');
-        $publishBtn.addEventListener('click', ()=>{
-            const publishLink = `https://docs.google.com/presentation/d/${presentationCopyId}/preview`; 
-            // change the url from /preview to /preview?rm=minimal to remove the slide controls if needed
-            window.open(publishLink);
-        });
-
-        // setup download btn 
-        $downloadBtn.classList.remove('hide');
-        $downloadBtn.addEventListener('click', e => {
-            const downloadLink = `https://docs.google.com/presentation/d/${presentationCopyId}/export?format=pdf`;
-            window.open(downloadLink);
-        });
-
-        });
-
-
-    }
-
-
-    // });
-} catch (err) {
-    document.getElementById('content').innerText = err.message;
-    return;
-}
-} */
 
 async function textMerging(templatePresentationId, callback) {
 // Use the Sheets API to load data, one record per row.
@@ -550,10 +230,9 @@ try {
     //   const values = sheetsResponse.result.values;
     //   // For each record, create a new merged presentation.
 
-    const uname = document.querySelector('#uname').value.trim() || 'Yesse';
-    const date = document.querySelector('#date').value.trim() || 'Feb 02 - Feb 12';
+    const uname = document.querySelector('#uname').value.trim() || 'No User';
+    const date = document.querySelector('#date').value.trim() || 'Jan 01 - Jan 02';
 
-    console.log('uname:\n', uname, '\ndate:\n', date) 
 
     const values = [
         [uname, date, 
@@ -749,3 +428,4 @@ script2.onload = gisLoaded;
 script2.src = 'https://accounts.google.com/gsi/client';
 
 document.querySelector('#authorize_button').addEventListener('click', handleAuthClick);
+
