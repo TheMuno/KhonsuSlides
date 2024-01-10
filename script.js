@@ -336,7 +336,10 @@ async function textMerging(templatePresentationId, requests, callback) {
                 gapi.client.slides.presentations.get({
                     presentationId: presentationCopyId,
                 }, (err, res) => {
-                    if (err) return error(err);
+                    if (err) {
+                        console.log('stopped for a lil while');
+                        return; 
+                    }
 
                     console.log('res', res) 
 
