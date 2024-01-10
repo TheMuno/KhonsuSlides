@@ -283,7 +283,9 @@ async function textMerging(templatePresentationId, requests, callback) {
 
                 const pageObjectId = driveResponse.data.slides[4].objectId; 
 
-                console.log('pageObjectId', pageObjectId)
+                console.log('driveResponse', driveResponse, driveResponse.data)
+
+                // console.log('pageObjectId', pageObjectId) 
 
                 // const requests = [];
                 // const replaceText = {};
