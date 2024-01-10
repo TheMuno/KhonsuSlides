@@ -283,7 +283,7 @@ async function textMerging(templatePresentationId, requests, callback) {
 
                 // const pageObjectId = driveResponse.data.slides[4].objectId; 
 
-                console.log('driveResponse', driveResponse, driveResponse.data)
+                // console.log('driveResponse', driveResponse, driveResponse.data)
 
                 // console.log('pageObjectId', pageObjectId) 
 
@@ -330,6 +330,8 @@ async function textMerging(templatePresentationId, requests, callback) {
                             replaceText: eventName,
                         },
                 }]; */
+
+                console.log('gapi.client.slides', gapi.client.slides)
 
                 // Execute the requests for this presentation.
                 gapi.client.slides.presentations.batchUpdate({
