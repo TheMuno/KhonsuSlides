@@ -333,6 +333,22 @@ async function textMerging(templatePresentationId, requests, callback) {
 
                 console.log('gapi.client.slides', gapi.client.slides)
 
+                gapi.client.slides.presentations.get({
+                    presentationId: presentationCopyId,
+                }, (err, res) => {
+                    if (err) return error(err);
+
+                    console.log('res', res) 
+
+                    // length = res.data.slides.length;
+                    // for (a = 0; a <= length; a++){
+                    //     let ids = res.data.slides.objectId[a];
+                    //     console.log(ids);
+                    //     slideObjectIds.push(ids);
+                    //     console.log(slideObjectIds);
+                    // }
+                });
+
                 // Execute the requests for this presentation.
                 gapi.client.slides.presentations.batchUpdate({
                     presentationId: presentationCopyId,
