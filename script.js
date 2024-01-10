@@ -268,60 +268,6 @@ async function textMerging(templatePresentationId, requests, callback) {
     const responses = [];
     const dataRangeNotation = 'Customers!A2:M6';
     try {
-        // gapi.client.sheets.spreadsheets.values.get({
-        //   spreadsheetId: dataSpreadsheetId,
-        //   range: dataRangeNotation,
-        // }).then((sheetsResponse) => {
-        //   const values = sheetsResponse.result.values;
-        //   // For each record, create a new merged presentation.
-
-        // const uname = document.querySelector('#uname').value.trim() || 'No User';
-        // const date = document.querySelector('#date').value.trim() || 'Jan 01 - Jan 02';
-
-
-        // const values = [
-        //     [uname, date, 
-        //     'Grand Central Station', 'Manhattan, NY 10036',
-        //     'Summit One', '45 Rockefeller Plaza, New York, NY 10111',
-        //     'Top Of the Rock', '30 Rockefeller Plaza, New York, NY 10112'],
-        //     // ['Mui', 'A guy', 'Designer'],
-        //     // ['KK', 'A gal', 'Dev'],
-        // ];
-
-        // values.forEach(row => {
-        //   const userName = row[0]; 
-        //   const travelDate = row[1]; 
-        //   const eventName1 = row[2]; 
-        //   const eventAddress1 = row[3]; 
-        //   const eventName2 = row[4]; 
-        //   const eventAddress2 = row[5]; 
-        //   const eventName3 = row[6]; 
-        //   const eventAddress3 = row[7]; 
-
-        //   const requests = [];
-        //   const replaceText = {};
-        //   replaceText.containsText = {
-        //       text: '{{travel-date}}',
-        //       matchCase: true,
-        //   };
-        //   replaceText.replaceText = travelDate;
-        //   requests.push({replaceText});
-
-        // });
-
-        // for (let i = 0; i < values.length; ++i) {
-        //     const row = values[i];
-        //     const userName = row[0]; 
-        //     const travelDate = row[1]; 
-        //     const eventName1 = row[2]; 
-        //     const eventAddress1 = row[3]; 
-        //     const eventName2 = row[4]; 
-        //     const eventAddress2 = row[5]; 
-        //     const eventName3 = row[6]; 
-        //     const eventAddress3 = row[7]; 
-
-        //     console.log(`userName: ${userName} \n travelDate: ${travelDate} `)//\n totalPortfolio: ${totalPortfolio}`)
-
             // Duplicate the template presentation using the Drive API.
             // const copyTitle = userName + ' presentation';
             const copyTitle = 'Sample presentation';
@@ -334,6 +280,10 @@ async function textMerging(templatePresentationId, requests, callback) {
                 requests: request,
             }).then((driveResponse) => {
                 const presentationCopyId = driveResponse.result.id;
+
+                const pageObjectId = driveResponse.data.slides[4].objectId; 
+
+                console.log('pageObjectId', pageObjectId)
 
                 // const requests = [];
                 // const replaceText = {};
@@ -422,10 +372,6 @@ async function textMerging(templatePresentationId, requests, callback) {
             });
 
 
-        //}
-
-
-        // });
     } catch (err) {
         document.getElementById('content').innerText = err.message;
         return;
