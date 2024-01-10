@@ -356,6 +356,8 @@ async function textMerging(templatePresentationId, requests, callback) {
                     { duplicateObject: {objectId: 'id.g1441bd093d9_1_3143'} }
                 );
 
+                console.log('requests PART 2', requests)
+
                 // Execute the requests for this presentation.
                 gapi.client.slides.presentations.batchUpdate({
                     presentationId: presentationCopyId,
