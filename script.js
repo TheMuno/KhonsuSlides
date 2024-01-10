@@ -71,6 +71,10 @@ async function retrieveSavedMarkersFromFirebase(userMail, arrivalDate=undefined)
                 requests.push(replaceTxtObj);
             });
 
+            requests.unshift(
+                { duplicateObject: {objectId: 'g1441bd093d9_1_3143'} }
+            );
+
             
         }
     } 
@@ -352,9 +356,9 @@ async function textMerging(templatePresentationId, requests, callback) {
                 //     // }
                 // });
 
-                requests.unshift(
-                    { duplicateObject: {objectId: 'g1441bd093d9_1_3143'} }
-                );
+                // requests.unshift(
+                //     { duplicateObject: {objectId: 'g1441bd093d9_1_3143'} }
+                // );
 
                 console.log('requests PART 2', requests)
 
