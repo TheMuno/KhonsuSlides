@@ -352,7 +352,7 @@ async function textMerging(templatePresentationId, requests, callback) {
                 //     // }
                 // });
 
-                requests.push(
+                requests.unshift(
                     { duplicateObject: {objectId: 'g1441bd093d9_1_3143'} }
                 );
 
@@ -371,7 +371,7 @@ async function textMerging(templatePresentationId, requests, callback) {
                     // Count the total number of replacements made.
                     let numReplacements = 0;
                     for (let i = 0; i < result.replies.length; ++i) {
-                        numReplacements += result.replies[i].replaceAllText.occurrencesChanged;
+                        numReplacements += result.replies[i]?.replaceAllText?.occurrencesChanged;
                     }
 
                     // console.log(`Created presentation for ${userName} with ID: ${presentationCopyId}`);
