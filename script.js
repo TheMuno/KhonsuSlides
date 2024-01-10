@@ -353,7 +353,7 @@ async function textMerging(templatePresentationId, requests, callback) {
                 // });
 
                 requests.push(
-                    { duplicateObject: {objectId: 'id.g1441bd093d9_1_3143'} }
+                    { duplicateObject: {objectId: 'g1441bd093d9_1_3143'} }
                 );
 
                 console.log('requests PART 2', requests)
