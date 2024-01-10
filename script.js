@@ -331,26 +331,30 @@ async function textMerging(templatePresentationId, requests, callback) {
                         },
                 }]; */
 
-                console.log('gapi.client.slides', gapi.client.slides)
+                // console.log('gapi.client.slides', gapi.client.slides)
 
-                gapi.client.slides.presentations.get({
-                    presentationId: presentationCopyId,
-                }, (err, res) => {
-                    if (err) {
-                        console.log('stopped for a lil while');
-                        return; 
-                    }
+                // gapi.client.slides.presentations.get({
+                //     presentationId: presentationCopyId,
+                // }, (err, res) => {
+                //     if (err) {
+                //         console.log('stopped for a lil while');
+                //         return; 
+                //     }
 
-                    console.log('res', res) 
+                //     console.log('res', res) 
 
-                    // length = res.data.slides.length;
-                    // for (a = 0; a <= length; a++){
-                    //     let ids = res.data.slides.objectId[a];
-                    //     console.log(ids);
-                    //     slideObjectIds.push(ids);
-                    //     console.log(slideObjectIds);
-                    // }
-                });
+                //     // length = res.data.slides.length;
+                //     // for (a = 0; a <= length; a++){
+                //     //     let ids = res.data.slides.objectId[a];
+                //     //     console.log(ids);
+                //     //     slideObjectIds.push(ids);
+                //     //     console.log(slideObjectIds);
+                //     // }
+                // });
+
+                requests.push(
+                    { duplicateObject: {objectId: 'id.g1441bd093d9_1_3143'} }
+                );
 
                 // Execute the requests for this presentation.
                 gapi.client.slides.presentations.batchUpdate({
