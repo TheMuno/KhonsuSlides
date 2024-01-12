@@ -219,6 +219,8 @@ tokenClient.callback = async (resp) => {
     
     const requests = await retrieveSavedMarkersFromFirebase(currentUserMail); 
 
+    console.log('currentUserMail', currentUserMail) 
+
     await textMerging(templatePresentationId, requests, ()=>{
         console.log('ran yes....')
     });
