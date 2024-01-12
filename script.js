@@ -102,7 +102,10 @@ async function retrieveSavedMarkersFromFirebase(userMail, arrivalDate=undefined)
 
 }
 
-
+document.querySelector('#email').addEventListener('change', e => {
+    const mail = e.currentTarget.value;
+    localStorage.usrMail = mail;
+});
 
 
 
