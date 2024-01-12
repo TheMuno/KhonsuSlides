@@ -12,7 +12,7 @@ const firebaseConfig = {
     measurementId: "G-Z7F4NJ4PHW"
 };
 
-const currentUserMail = localStorage.userMail || 'one@mail.com'; 
+// const currentUserMail = localStorage.userMail || 'one@mail.com'; 
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
@@ -217,9 +217,7 @@ tokenClient.callback = async (resp) => {
     // const templatePresentationId = '1DbtSZWDkHHHfUKwheiDENcg0xMml89CYVHyS1Q-0dd4';     // with images
     const templatePresentationId = '186IKtYygUerbUfk1LhhiMjMKkSfqb0ty3L_BwOfLFWQ';     // official template 
     
-    const requests = await retrieveSavedMarkersFromFirebase(currentUserMail); 
-
-    console.log('currentUserMail', currentUserMail) 
+    const requests = await retrieveSavedMarkersFromFirebase(localStorage.userMail || 'one@mail.com'); 
 
     await textMerging(templatePresentationId, requests, ()=>{
         console.log('ran yes....')
