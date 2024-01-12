@@ -102,15 +102,25 @@ async function retrieveSavedMarkersFromFirebase(userMail, arrivalDate=undefined)
 
 }
 
-document.querySelector('#email').addEventListener('change', e => {
-    const mail = e.currentTarget.value;
-    localStorage.usrMail = mail;
-});
+
 
 
 
 const $publishBtn = document.querySelector('.publish'); 
 const $downloadBtn = document.querySelector('.download');
+const $emailBtn = document.querySelector('#email'); 
+
+
+document.addEventListener('DOMContentLoaded', () => {
+    if(localStorage.usrMail) {
+        $emailBtn.value = localStorage.usrMail; 
+    }
+});
+
+$emailBtn.addEventListener('change', e => {
+    const mail = e.currentTarget.value;
+    localStorage.usrMail = mail;
+});
 
 
 /* exported gapiLoaded */
