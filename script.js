@@ -220,7 +220,7 @@ tokenClient.callback = async (resp) => {
     // const templatePresentationId = '1DbtSZWDkHHHfUKwheiDENcg0xMml89CYVHyS1Q-0dd4';     // with images
     const templatePresentationId = '186IKtYygUerbUfk1LhhiMjMKkSfqb0ty3L_BwOfLFWQ';     // official template 
     
-    const currMail = localStorage.userMail || 'one@mail.com'; 
+    const currMail = localStorage.usrMail || 'one@mail.com'; 
     const requests = await retrieveSavedMarkersFromFirebase(currMail); 
 
     await textMerging(templatePresentationId, requests, ()=>{
