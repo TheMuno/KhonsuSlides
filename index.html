@@ -6,8 +6,8 @@
     <style>
       .publish.hide,
       .download.hide,
-      #authorize_button,
-      #signout_button {
+      #authorize_button.hide,
+      #signout_button.hide {
         display: none; 
       }
 
@@ -48,9 +48,9 @@
 
     <div class="btns">
       <!--Add buttons to initiate auth sequence and sign out-->
-      <button id="authorize_button">Authorize</button>
+      <button id="authorize_button" class="hide">Authorize</button>
       <!-- <button id="authorize_button" onclick="handleAuthClick()">Authorize</button> -->
-      <button id="signout_button" onclick="handleSignoutClick()">Sign Out</button>
+      <button id="signout_button" class="hide" onclick="handleSignoutClick()">Sign Out</button>
 
       <button class="publish hide">Publish To Web</button>
       <button class="download hide">Download</button>
