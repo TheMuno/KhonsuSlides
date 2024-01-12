@@ -112,9 +112,7 @@ const $emailBtn = document.querySelector('#email');
 
 
 document.addEventListener('DOMContentLoaded', () => {
-    if(localStorage.usrMail) {
-        $emailBtn.value = localStorage.usrMail; 
-    }
+    $emailBtn.value = localStorage.usrMail ? localStorage.usrMail : 'one@mail.com';
 });
 
 $emailBtn.addEventListener('change', e => {
