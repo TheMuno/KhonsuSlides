@@ -142,8 +142,8 @@ let tokenClient;
 let gapiInited = false;
 let gisInited = false;
 
-document.getElementById('authorize_button').style.visibility = 'hidden';
-document.getElementById('signout_button').style.visibility = 'hidden';
+// document.getElementById('authorize_button').style.visibility = 'hidden';
+// document.getElementById('signout_button').style.visibility = 'hidden';
 
 /**
  * Callback after api.js is loaded.
@@ -189,7 +189,8 @@ maybeEnableButtons();
 function maybeEnableButtons() {
 if (gapiInited && gisInited) {
     
-    document.getElementById('authorize_button').style.visibility = 'visible';
+    // document.getElementById('authorize_button').style.visibility = 'visible';
+    document.getElementById('authorize_button').classList.remove('hide'); 
 }
 }
 
@@ -201,7 +202,8 @@ tokenClient.callback = async (resp) => {
     if (resp.error !== undefined) {
     throw (resp);
     }
-    document.getElementById('signout_button').style.visibility = 'visible';
+    // document.getElementById('signout_button').style.visibility = 'visible';
+    document.getElementById('signout_button').classList.remove('hide'); 
     document.getElementById('authorize_button').innerText = 'Refresh';
     // await listSlides();
     await listFiles();
@@ -243,7 +245,8 @@ if (token !== null) {
     gapi.client.setToken('');
     document.getElementById('content').innerText = '';
     document.getElementById('authorize_button').innerText = 'Authorize';
-    document.getElementById('signout_button').style.visibility = 'hidden';
+    // document.getElementById('signout_button').style.visibility = 'hidden';
+    document.getElementById('signout_button').classList.add('hide'); 
 }
 }
 
