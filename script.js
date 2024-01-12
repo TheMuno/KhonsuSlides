@@ -12,7 +12,7 @@ const firebaseConfig = {
     measurementId: "G-Z7F4NJ4PHW"
 };
 
-const currentUserMail = 'one@mail.com'; 
+const currentUserMail = localStorage.userMail || 'one@mail.com'; 
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
