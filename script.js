@@ -284,150 +284,38 @@ document.getElementById('content').innerText = output;
 }
 
 
-
 async function textMerging(templatePresentationId, requests, callback) {
-    // Use the Sheets API to load data, one record per row.
-    const responses = [];
-    const dataRangeNotation = 'Customers!A2:M6';
     try {
-            // Duplicate the template presentation using the Drive API.
-            // const copyTitle = userName + ' presentation';
-            const copyTitle = 'Sample presentation';
-            const request = {
-                name: copyTitle,
-            };
+        // Duplicate the template presentation using the Drive API.
+        const copyTitle = 'Sample presentation';
+        const request = {
+            name: copyTitle,
+        };
 
-            gapi.client.drive.files.copy({
-                fileId: templatePresentationId,
-                requests: request,
-            }).then((driveResponse) => {
-                const presentationCopyId = driveResponse.result.id;
+        gapi.client.drive.files.copy({
+            fileId: templatePresentationId,
+            requests: request,
+        }).then((driveResponse) => {
+            const presentationCopyId = driveResponse.result.id;
 
-                // const pageObjectId = driveResponse.data.slides[4].objectId; 
+            // Execute the requests for this presentation.
+            gapi.client.slides.presentations.batchUpdate({
+                presentationId: presentationCopyId,
+                requests: requests,
+            }).then((batchUpdateResponse) => {
+                const result = batchUpdateResponse.result;
 
-                // console.log('driveResponse', driveResponse, driveResponse.data)
-
-                // console.log('pageObjectId', pageObjectId) 
-
-                // const requests = [];
-                // const replaceText = {};
-                // replaceText.containsText = {
-                //     text: '{{travel-date}}',
-                //     matchCase: true,
-                // };
-                // replaceText.replaceText = travelDate;
-                // requests.push({replaceText}); 
-
-                // Create the text merge (replaceAllText) requests for this presentation.
-                /* const requests = [{
-                        replaceAllText: {
-                            containsText: {
-                                text: '{{user-name}}',
-                                matchCase: true,
-                            },
-                            replaceText: userName,
-                        },
-                    }, {
-                        replaceAllText: {
-                            containsText: {
-                                text: '{{travel-date}}',
-                                matchCase: true,
-                            },
-                            replaceText: travelDate,
-                        },
-                    }, {
-                        replaceAllText: {
-                            containsText: {
-                                text: '{{title}}',
-                                matchCase: true,
-                            },
-                            replaceText: title,
-                        },
-                    }, {
-                        replaceAllText: {
-                            containsText: {
-                                text: '{{event-name}}',
-                                matchCase: true,
-                            },
-                            replaceText: eventName,
-                        },
-                }]; */
-
-                // console.log('gapi.client.slides', gapi.client.slides)
-
-                // gapi.client.slides.presentations.get({
-                //     presentationId: presentationCopyId,
-                // }, (err, res) => {
-                //     if (err) {
-                //         console.log('stopped for a lil while');
-                //         return; 
-                //     }
-
-                //     console.log('res', res) 
-
-                //     // length = res.data.slides.length;
-                //     // for (a = 0; a <= length; a++){
-                //     //     let ids = res.data.slides.objectId[a];
-                //     //     console.log(ids);
-                //     //     slideObjectIds.push(ids);
-                //     //     console.log(slideObjectIds);
-                //     // }
-                // });
-
-                // requests.unshift(
-                //     { duplicateObject: {objectId: 'g1441bd093d9_1_3143'} }
-                // );
-
-                console.log('requests PART 2', requests)
-
-                // Execute the requests for this presentation.
-                gapi.client.slides.presentations.batchUpdate({
-                    presentationId: presentationCopyId,
-                    requests: requests,
-                }).then((batchUpdateResponse) => {
-                    const result = batchUpdateResponse.result;
-
-                    // console.log('requests:', requests, '\nresult:', result, 'batchUpdateResponse:', batchUpdateResponse)  
-
-                    responses.push(result.replies);
-                    // Count the total number of replacements made.
-                    let numReplacements = 0;
-                    for (let i = 0; i < result.replies.length; ++i) {
-                        numReplacements += result.replies[i]?.replaceAllText?.occurrencesChanged;
-                    }
-
-                    // console.log(`Created presentation for ${userName} with ID: ${presentationCopyId}`);
-                    console.log(`Replaced ${numReplacements} text instances`);
-
-                    // if (responses.length === values.length) { // callback for the last value
-                    //     if (callback) callback(responses);
-                    // }
-                });
-
-
-                // setup publish link btn
-                $publishBtn.classList.remove('hide');
-                $publishBtn.addEventListener('click', ()=>{
-                    const publishLink = `https://docs.google.com/presentation/d/${presentationCopyId}/preview`; 
-                    // change the url from /preview to /preview?rm=minimal to remove the slide controls if needed
-                    window.open(publishLink);
-                });
-
-                // setup download btn 
-                $downloadBtn.classList.remove('hide');
-                $downloadBtn.addEventListener('click', e => {
-                    const downloadLink = `https://docs.google.com/presentation/d/${presentationCopyId}/export?format=pdf`;
-                    window.open(downloadLink);
-                });
+                console.log('Replaced text instances', batchUpdateResponse);
 
             });
-
-
-    } catch (err) {
+        }); 
+    }
+    catch (err) {
         document.getElementById('content').innerText = err.message;
         return;
     }
 }
+
 
 
 const script1 = document.createElement('script');
@@ -441,4 +329,3 @@ script2.onload = gisLoaded;
 script2.src = 'https://accounts.google.com/gsi/client';
 
 document.querySelector('#authorize_button').addEventListener('click', handleAuthClick);
-
