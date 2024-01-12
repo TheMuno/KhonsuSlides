@@ -21,6 +21,9 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);   
 
 async function retrieveSavedMarkersFromFirebase(userMail, arrivalDate=undefined) {
+
+    console.log('used mail', userMail)
+
     const docRef = doc(db, 'Locations', `User-${userMail}`);
     const docSnap = await getDoc(docRef);
 
@@ -217,7 +220,8 @@ tokenClient.callback = async (resp) => {
     // const templatePresentationId = '1DbtSZWDkHHHfUKwheiDENcg0xMml89CYVHyS1Q-0dd4';     // with images
     const templatePresentationId = '186IKtYygUerbUfk1LhhiMjMKkSfqb0ty3L_BwOfLFWQ';     // official template 
     
-    const requests = await retrieveSavedMarkersFromFirebase(localStorage.userMail || 'one@mail.com'); 
+    const currMail = localStorage.userMail || 'one@mail.com'; 
+    const requests = await retrieveSavedMarkersFromFirebase(currMail); 
 
     await textMerging(templatePresentationId, requests, ()=>{
         console.log('ran yes....')
