@@ -69,8 +69,10 @@ async function retrieveSavedMarkersFromFirebase(userMail, arrivalDate=undefined)
                 // const containsTxt = locat.dayEventName;
                 // const replaceTxt = locat.title;
                 const replaceTxt = locat.dayEventName;
+
+                const dayNum = day.split('_')[1]; 
                 
-                const replaceTxtObj = makeRequestsObj(replaceTxt, num+1); 
+                const replaceTxtObj = makeRequestsObj(replaceTxt, num+1, dayNum); 
                 requests.push(replaceTxtObj);
             });
 
@@ -90,11 +92,11 @@ async function retrieveSavedMarkersFromFirebase(userMail, arrivalDate=undefined)
     }
 
     // function makeRequestsObj(containsTxt, replaceTxt) {
-    function makeRequestsObj(replaceTxt, num) {
+    function makeRequestsObj(replaceTxt, num, dayNum) {
         const o = {};
         o.replaceAllText = {};
         o.replaceAllText.containsText = {};
-        o.replaceAllText.containsText.text = `{{event-name-${num}}}`; //containsTxt;
+        o.replaceAllText.containsText.text = `{{event-name-${num}-${dayNum}}}`; //containsTxt;
         o.replaceAllText.containsText.matchCase = true;
         o.replaceAllText.replaceText = replaceTxt;
         return o; 
