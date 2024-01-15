@@ -59,7 +59,6 @@ async function retrieveSavedMarkersFromFirebase(userMail, arrivalDate=undefined)
         },
     }]; 
 
-
     for (let [day, locations] of Object.entries(userData)) {
         if (day.startsWith('_')) {
 
@@ -76,10 +75,21 @@ async function retrieveSavedMarkersFromFirebase(userMail, arrivalDate=undefined)
                 requests.push(replaceTxtObj);
             });
 
-            requests.unshift(
-                { duplicateObject: {objectId: 'g1441bd093d9_1_3143'} }
-            );
+            // requests.unshift(
+            //     { duplicateObject: {objectId: 'g1441bd093d9_1_3143'} }
+            // );
 
+            requests.unshift(
+                {
+                  createSlide: {
+                    // objectId: pageId,
+                    insertionIndex: '5',
+                    slideLayoutReference: {
+                        layoutId: 'g1441bd093d9_1_3143',
+                    },
+                  },
+                },
+            );
             
         }
     } 
