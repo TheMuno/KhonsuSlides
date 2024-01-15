@@ -85,7 +85,7 @@ async function retrieveSavedMarkersFromFirebase(userMail, arrivalDate=undefined)
                     // objectId: pageId,
                     insertionIndex: '5',
                     slideLayoutReference: {
-                        layoutId: 'BLANK',
+                        layoutId: 'TITLE_AND_TWO_COLUMNS',
                     },
                   },
                 },
